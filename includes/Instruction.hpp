@@ -60,3 +60,5 @@ struct Instruction {
   Mode     _bMode;
   unsigned _bValue;
 };
+
+std::ostream&   operator<<(std::ostream&, Instruction const&);

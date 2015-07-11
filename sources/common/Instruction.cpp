@@ -30,3 +30,9 @@ Instruction::operator<<(std::ostream& os) const {
      << ": [B: " << _bMode << ", " << _bValue << "] at " << this << ">";
   return os;
 }
+
+
+std::ostream&
+operator<<(std::ostream& os, Instruction const& i) {
+     return (i << os);
+}
