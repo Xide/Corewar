@@ -31,8 +31,7 @@ Instruction::operator<<(std::ostream& os) const {
   return os;
 }
 
-
 std::ostream&
 operator<<(std::ostream& os, Instruction const& i) {
-     return (i << os);
+  return i << os;
 }

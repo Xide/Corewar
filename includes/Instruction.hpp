@@ -61,4 +61,5 @@ struct Instruction {
   unsigned _bValue;
 };
 
-std::ostream&   operator<<(std::ostream&, Instruction const&);
+std::ostream& operator<<(std::ostream&,
+                         Instruction const&);
