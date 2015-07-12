@@ -25,7 +25,7 @@ Instruction::operator=(Instruction const& src) {
 
 std::ostream&
 Instruction::operator<<(std::ostream& os) const {
-  os << "< Instruction " << _opcode << ", " << _modifier
+  os << "<Instruction " << _opcode << ", " << _modifier
      << ": [A: " << _aMode << ", " << _aValue << "], "
      << ": [B: " << _bMode << ", " << _bValue << "] at " << this << ">";
   return os;
