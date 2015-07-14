@@ -14,8 +14,8 @@ for detailed informations on how the norme is done, please refer to
 uncrustify.cfg
 
 	Naming conventions:
-	Classes				->	CamelCase
-	functions / variables		->	lowerCamelCase
-	routine functions		->	_lowerCamelCase
-	attributes			->	_lowerCamelCase
-	globals				->	gCamelCase
+	Classes                 ->    CamelCase
+	functions / variables   ->    lowerCamelCase
+	routine functions       ->    _lowerCamelCase
+	attributes              ->    _lowerCamelCase
+	globals                 ->    gCamelCase
