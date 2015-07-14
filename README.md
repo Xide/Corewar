@@ -6,7 +6,6 @@ What is this ?
 
 The Corewar is a programming game where programs (called warriors) must fight in a virtual arena.
 
-----------
 
 Conventions
 -------------
@@ -25,8 +24,6 @@ Public attrs / methods | lowerCamelCase   |
 Globals                | gCamelCase       |
 
 
-
-----------
 Credits & Licence
 -------------
 
