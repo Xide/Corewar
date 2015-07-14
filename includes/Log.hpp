@@ -14,8 +14,8 @@
 #include "LogError.hpp"
 
 enum level {
-    NOTICE,
     DEBUG,
+    NOTICE,
     WARNING,
     ERROR,
     CRITICAL
