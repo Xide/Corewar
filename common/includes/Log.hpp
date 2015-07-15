@@ -4,8 +4,8 @@
 #include <fstream>
 #include <string>
 #include <iostream>
-#include <sstream> // stringstream
-#include <iomanip> // setw
+#include <sstream>  // stringstream
+#include <iomanip>  // setw
 #include "unistd.h" // Getpid
 
 // USAGE :
@@ -24,35 +24,40 @@ enum severity {
   _SEC_LVLS
 };
 
-class Logger
-{
+class Logger {
 public:
+
 #ifdef DEBUG
-  Logger(std::string const&, enum severity = DBG);
-#else
-#ifdef VERBOSE
-  Logger(std::string const&, enum severity = VERBOSE);
-#else
-  Logger(std::string const&, enum severity = NOTICE);
-#endif
-#endif
+  Logger(std::string const&,
+         enum severity = DBG);
+#else // ifdef DEBUG
+# ifdef VERBOSE
+  Logger(std::string const&,
+         enum severity = VERBOSE);
+# else // ifdef VERBOSE
+  Logger(std::string const&,
+         enum severity = NOTICE);
+# endif // ifdef VERBOSE
+#endif // ifdef DEBUG
   ~Logger();
-  void                  setFloor(enum severity);
-  Logger&               operator()(enum severity s);
+  void    setFloor(enum severity);
+  Logger& operator()(enum severity s);
   template<typename T>
-  Logger&               operator<<(T const& msg) {
-    std::stringstream   ss;
+  Logger& operator<<(T const& msg) {
+    std::stringstream ss;
 
     ss << msg;
     _log << ss.str();
 #ifdef DEBUG
     std::cout << ss.str();
-#endif
+#endif // ifdef DEBUG
     return *this;
   }
+
 private:
-  enum severity         _floor;
-  std::ofstream         _log;
+
+  enum severity _floor;
+  std::ofstream _log;
 };
 
 extern Logger gLog;

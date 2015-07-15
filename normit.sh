@@ -6,7 +6,7 @@ function process {
     fi
 }
 
-for file in */{sources,includes}/*.{cpp,h*};
+for file in */{sources,includes}/*.{cpp,hpp,h};
 do
     if grep -q '*' <<< $file; then continue; fi
     process $file

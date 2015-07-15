@@ -1,10 +1,10 @@
 #include "LogException.hpp"
 
-LogException::LogException(const std::string &msg) throw() {
+LogException::LogException(const std::string& msg) throw() {
   this->_what = msg;
 }
 
-LogException::~LogException() throw() { }
+LogException::~LogException() throw() {}
 
 const char *
 LogException::what() const throw() {
