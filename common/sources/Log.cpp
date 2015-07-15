@@ -75,27 +75,27 @@ Log::log(enum level lvl, const std::string format, ...) {
   switch (lvl) {
   case NOTICE:
     _logStream << "[notice] " <<
-    std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
+      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
     break;
 
-  case DEBUG:
+  case DBG:
     _logStream << "[debug] " <<
-    std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
+      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
     break;
 
   case WARNING:
     _logStream << "[warning] " <<
-    std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
+      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
     break;
 
   case ERROR:
     _logStream << "[error] " <<
-    std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
+      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
     break;
 
   case CRITICAL:
     _logStream << "[critical] " <<
-    std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
+      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
     break;
   }
   free(ptr);

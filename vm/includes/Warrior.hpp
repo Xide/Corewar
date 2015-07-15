@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <stdexcept>
 #include "Instruction.hpp"
 
 class Warrior {

@@ -1,4 +1,5 @@
 //
+
 // Author: SiN
 // Project: Corewar
 // Avaible: https://github.com/Xide/Corewar.git
@@ -10,5 +11,6 @@
 
 class IException : public std::exception {
 public:
-    virtual const char *what() const throw() = 0;
+
+  virtual const char* what() const throw() = 0;
 };

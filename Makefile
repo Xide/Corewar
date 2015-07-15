@@ -1,28 +1,50 @@
-VM 		:= arena
+##
+## Makefile for corewar in /home/aslafy_z/.cloud/Dropbox/projects/corewar
+## 
+## Made by Zadkiel Aslafy-Aharonian
+## Login   <aslafy_z@epitech.net>
+## 
+## Started on  Wed Jul 15 16:28:37 2015 Zadkiel Aslafy-Aharonian
+## Last update Wed Jul 15 16:46:32 2015 Zadkiel Aslafy-Aharonian
+##
 
-CC 		:= clang++
-RM 		:= rm -f
-LN 		:= ln -fs
+include common/common.mk
 
-WFLAGS 		:= -W -Wall -Wextra
-IFLAGS 		:= -I./includes
-CXXFLAGS 	:= $(WFLAGS) $(IFLAGS)
-LDFLAGS 	:= 
+VM := arena
+ASM := warbler
 
-all: $(VM)
+OPT := all
 
-VM_S := $(wildcard sources/vm/*.cpp)
+all: $(VM) $(ASM)
 
-VM_O 		:= $(VM_S:.cpp=.o)
+$(VM):
+	@$(MAKE) -C vm $(OPT)
 
-$(VM): $(VM_O)
-	$(CC) -o $(VM) $(LDFLAGS) $(VM_O)
+$(ASM):
+	@$(MAKE) -C asm $(OPT)
+
+PHONY += debug fdebug dere
+debug: OPT := debug
+debug: all
+
+fdebug: OPT := debug
+fdebug: fclean all
+
+dere: fdebug
+
+PHONY += clean
+clean: OPT := clean
 clean:
-	$(RM) $(VM_O)
+	@$(MAKE) -C vm $(OPT)
+	@$(MAKE) -C asm $(OPT)
 
-fclean: clean
-	$(RM) $(VM)
+PHONY += fclean
+fclean: OPT := fclean
+fclean:
+	@$(MAKE) -C vm $(OPT)
+	@$(MAKE) -C asm $(OPT)
 
+PHONY += re
 re: fclean all
 
-
+.PHONY: $(PHONY)
