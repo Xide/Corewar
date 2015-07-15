@@ -5,7 +5,7 @@
 ## Login   <aslafy_z@epitech.net>
 ##
 ## Started on  Wed Jul 15 16:22:23 2015 Zadkiel Aslafy-Aharonian
-## Last update Wed Jul 15 16:45:07 2015 Zadkiel Aslafy-Aharonian
+## Last update Wed Jul 15 17:15:28 2015 Zadkiel Aslafy-Aharonian
 ##
 
 V ?= 0
@@ -16,21 +16,21 @@ SRCDIR      := sources
 OBJDIR      := objects
 
 LANG	    := cpp
-CXX	    = g++
+CXX	    = g++ -std=c++0x
 DEBUG	    := 0
 
 WFLAGS      := -W -Wall -Wextra
 INCFLAGS    := -I includes -I ../common/includes
-DEFFLAGS    :=
+DEFFLAGS    := -DLOGFILE='"$(LOGFILE)"'
 DBGFLAGS    := -DNDEBUG
 
 LDFLAGS     :=
 
-CXXFLAGS    = -std=c++0x $(DEFFLAGS) $(WFLAGS) $(INCFLAGS) $(DBGFLAGS)
+CXXFLAGS    = $(DEFFLAGS) $(WFLAGS) $(INCFLAGS) $(DBGFLAGS)
 
 SOURCES     := $(subst sources/,,$(wildcard sources/*.cpp)) \
 		common/Log.cpp \
-		common/LogError.cpp
+		common/LogException.cpp
 
 OBJECTS     := $(patsubst %.cpp, $(OBJDIR)/%.o, $(SOURCES))
 SOURCES     := $(patsubst %.cpp, $(SRCDIR)/%.cpp, $(SOURCES))

@@ -1,103 +1,48 @@
-//
-
-// Author: SiN
-// Project: Corewar
-// Avaible: https://github.com/Xide/Corewar.git
-//
-
-#include <bits/stringfwd.h>
-#include <cstdlib>
+#include <sys/types.h>
+#include <unistd.h>
+#include <iomanip>
+#include <ctime>
+#include "LogException.hpp"
 #include "Log.hpp"
 
-//
-// ctor / dtor
-//
+Logger          gLog(LOGFILE);
 
-Log::Log(enum level lvl) {
-  _lvl = lvl;
-  _logStream.open("corewar.log", std::fstream::out);
-
-  if (!_logStream) throw LogError("Can't open the log file");
+Logger::Logger(std::string const& path, enum severity floor) {
+  _log.open(path.c_str(), std::ofstream::out | std::ofstream::app);
+  if (!_log.is_open())
+    throw LogException("Could not open log file : " + path);
+  setFloor(floor);
+  (*this)(NOTICE) << "Logger started on file " << path << "\n";
 }
 
-Log::Log(const Log& log) {
-  _lvl = log._lvl;
-  _logStream.open("../corewar.log", std::fstream::out);
-
-  if (!_logStream) throw LogError("Can't open the log file");
+Logger::~Logger(void) {
+  _log << std::endl << std::endl;
+  _log.close();
 }
 
-Log::~Log() {
-  if (_logStream) _logStream.close();
+void
+Logger::setFloor(enum severity f) { _floor = f; }
+
+Logger&
+Logger::operator()(enum severity s) {
+    time_t              t;
+    struct tm           *ti;
+    char                b[80];
+    static std::string  severities[_SEC_LVLS] = {"DEBUG", "VERBOSE", "NOTICE",
+                                                 "WARNING", "ERROR", "CRITICAL"};
+    std::stringstream   ss;
+
+    if (!_log.is_open()) return *this;
+    time(&t);
+    ti = localtime(&t);
+    strftime(b, 80, "%d-%m-%Y %I:%M:%S", ti);
+    ss << "[" << getpid() << "]"                                // Expediteur
+       << b << " "                                              // Temps
+       << std::setw(10) << severities[s].c_str() << " : ";      // Severite
+    _log << ss.str();
+#ifdef DEBUG
+    std::cout << ss.str();
+#endif
+    return *this;
 }
 
-//
-// overload
-//
-
-Log
-& Log::operator=(const Log& log) {
-  _lvl = log._lvl;
-  _logStream.open("../corewar.log", std::fstream::out);
-
-  if (!_logStream) throw LogError("Can't open the log file");
-  return *this;
-}
-
-bool
-Log::operator<<(const std::string& log) {
-  _logStream << log << std::endl;
-  return true;
-}
-
-//
-// function
-//
-
-bool
-Log::log(enum level lvl, const std::string format, ...) {
-  va_list args;
-  char   *ptr;
-  std::string data;
-
-  auto t  = std::time(nullptr);
-  auto tm = *std::localtime(&t);
-
-  ptr = NULL;
-
-  if (lvl < _lvl) return false;
-
-  va_start(args, format);
-  vasprintf(&ptr, format.c_str(), args);
-  va_end(args);
-  data = static_cast<char *>(ptr);
-
-  switch (lvl) {
-  case NOTICE:
-    _logStream << "[notice] " <<
-      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
-    break;
-
-  case DBG:
-    _logStream << "[debug] " <<
-      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
-    break;
-
-  case WARNING:
-    _logStream << "[warning] " <<
-      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
-    break;
-
-  case ERROR:
-    _logStream << "[error] " <<
-      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
-    break;
-
-  case CRITICAL:
-    _logStream << "[critical] " <<
-      std::put_time(&tm, "[%d-%m-%Y %H-%M-%S] ") << data << std::endl;
-    break;
-  }
-  free(ptr);
-  return true;
-}

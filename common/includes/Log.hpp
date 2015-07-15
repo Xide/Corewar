@@ -1,47 +1,58 @@
-//
-
-// Author: SiN
-// Project: Corewar
-// Avaible: https://github.com/Xide/Corewar.git
-//
-
 #pragma once
 
+#include <pthread.h>
 #include <fstream>
-#include <cstdarg>
 #include <string>
-#include <iomanip>
-#include <ctime>
-#include "LogError.hpp"
+#include <iostream>
+#include <sstream> // stringstream
+#include <iomanip> // setw
+#include "unistd.h" // Getpid
 
-enum level {
+// USAGE :
+
+// gLog(enum severity) << "Votre message de log" << std::endl;
+// EX:
+// gLog(NOTICE) << "Coucou" << std::endl;
+
+enum severity {
   DBG,
+  VERBOSE,
   NOTICE,
   WARNING,
   ERROR,
-  CRITICAL
+  CRITICAL,
+  _SEC_LVLS
 };
 
-class Log {
+class Logger
+{
 public:
+#ifdef DEBUG
+  Logger(std::string const&, enum severity = DBG);
+#else
+#ifdef VERBOSE
+  Logger(std::string const&, enum severity = VERBOSE);
+#else
+  Logger(std::string const&, enum severity = NOTICE);
+#endif
+#endif
+  ~Logger();
+  void                  setFloor(enum severity);
+  Logger&               operator()(enum severity s);
+  template<typename T>
+  Logger&               operator<<(T const& msg) {
+    std::stringstream   ss;
 
-  Log(enum level lvl = NOTICE);
-  Log(const Log&);
-  ~Log();
-
-public:
-
-  Log& operator=(const Log&);
-  bool operator<<(const std::string&);
-
+    ss << msg;
+    _log << ss.str();
+#ifdef DEBUG
+    std::cout << ss.str();
+#endif
+    return *this;
+  }
 private:
-
-  std::ofstream _logStream;
-  enum level    _lvl;
-
-public:
-
-  bool log(enum level        lvl,
-           const std::string format,
-           ...);
+  enum severity         _floor;
+  std::ofstream         _log;
 };
+
+extern Logger gLog;
