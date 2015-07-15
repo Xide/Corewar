@@ -1,15 +1,13 @@
 #pragma once
 
-#include <pthread.h>
 #include <fstream>
 #include <string>
 #include <iostream>
-#include <sstream>  // stringstream
+#include <sstream>
 #include <iomanip>  // setw
-#include "unistd.h" // Getpid
+#include "unistd.h" // getpid
 
 // USAGE :
-
 // gLog(enum severity) << "Votre message de log" << std::endl;
 // EX:
 // gLog(NOTICE) << "Coucou" << std::endl;

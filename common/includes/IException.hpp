@@ -1,13 +1,6 @@
-//
-
-// Author: SiN
-// Project: Corewar
-// Avaible: https://github.com/Xide/Corewar.git
-//
-
 #pragma once
 
-#include <exception>
+#include <stdexcept>
 
 class IException : public std::exception {
 public:

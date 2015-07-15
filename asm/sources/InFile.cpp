@@ -1,10 +1,3 @@
-//
-
-// Author: SiN
-// Project: Corewar
-// Avaible: https://github.com/Xide/Corewar.git
-//
-
 #include <sstream>
 #include "InFile.hpp"
 #include "ParsingError.hpp"
