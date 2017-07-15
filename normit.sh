@@ -1,7 +1,7 @@
 #!/bin/sh
 
 function process {
-    if [ -f $1 ] ; then
+    if [ -f $1 ]; then
 	uncrustify -c .uncrustify.cfg --replace --no-backup $1
     fi
 }

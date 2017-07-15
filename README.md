@@ -1,7 +1,7 @@
 Corewar
 ===================
 
-What is this ?
+What is this?
 -------------
 
 The Corewar is a programming game where programs (called warriors) must fight in a virtual arena.
@@ -14,10 +14,10 @@ For more informations about the game rules applied in this project, please refer
 
 > **Note:** Please remember to run `./normit.sh` in root folder before trying to submit your code.
 
-For detailed informations on how the norm is done, please refer to `uncrustify.cfg`
+For detailed informations on how the norm is done, please refer to `.uncrustify.cfg`
 
-Item                   | Value            |
-:----------------------| ---------------: |
+Type                   | Convention       |
+:----------------------| :--------------- |
 Classe Names           | CamelCase        |
 Private attrs / methods| _lowerCamelCase  |
 Public attrs / methods | lowerCamelCase   |
@@ -40,4 +40,3 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
   [1]: https://htmlpreview.github.io/?https://raw.githubusercontent.com/Xide/Corewar/master/REFERENCE.html
   [2]: https://github.com/Xide/Corewar/blob/master/REFERENCE.html
-
